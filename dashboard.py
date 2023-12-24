@@ -157,11 +157,17 @@ with st.expander("Summary_table"):
     fig = ff.create_table(df_sample,colorscale="Cividis")
     st.plotly_chart(fig,use_container_width=True)
 
+    csv=df_sample.to_csv(index=False).encode("utf-8")
+    st.download_button('Download this Data', data=csv,file_name="MonthlyCustom.csv",mime='text/csv')
+
     st.markdown("Table for Subcategories by Month")
     filtered_df["month"]=filtered_df["Order Date"].dt.month_name()
     sub_Category_Year = pd.pivot_table(data=filtered_df,values="Sales",index=["Sub-Category"],columns="month")
     #st.write(sub_Category_Year.T.style.background_gradient(cmap="Blues"))
     st.write(sub_Category_Year)
+
+    csv=sub_Category_Year.to_csv(index=False).encode("utf-8")
+    st.download_button('Download this Data', data=csv,file_name="SubCategory.csv",mime='text/csv')
 
 #Scatter plot 
 data1 = px.scatter(filtered_df,x="Sales",y="Profit",size="Quantity")
