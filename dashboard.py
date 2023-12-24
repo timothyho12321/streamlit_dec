@@ -17,9 +17,18 @@ if fl is not None:
     st.write(filename)
     df = pd.read_csv(filename, encoding = "ISO-8859-1")
 
+    st.write(f"File '{fl.name}' uploaded successfully.")
+
 else:
-    os.chdir("C:\Tim\streamlit_dashboard")
-    df=pd.read_csv("Superstore.csv", encoding = "ISO-8859-1")
+    #os.chdir("C:\Tim\streamlit_dashboard")
+    #df=pd.read_csv("Superstore.csv", encoding = "ISO-8859-1")
+
+    default_file_path = "Superstore.csv"
+    if os.path.exists(default_file_path):
+        df = pd.read_csv(default_file_path, encoding="ISO-8859-1")
+        st.write(f"Using default file: '{default_file_path}'.")
+    else:
+        st.write("No file uploaded, and default file not found.")
 
 
 col1, col2 = st.columns((2))
