@@ -1,3 +1,4 @@
+import calendar 
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -164,6 +165,14 @@ with st.expander("Summary_table"):
     filtered_df["month"]=filtered_df["Order Date"].dt.month_name()
     sub_Category_Year = pd.pivot_table(data=filtered_df,values="Sales",index=["Sub-Category"],columns="month")
     #st.write(sub_Category_Year.T.style.background_gradient(cmap="Blues"))
+    
+    # Sort columns in ascending order of month
+    month_order = list(calendar.month_name)
+    sub_Category_Year = sub_Category_Year.reindex(columns=month_order, level=1)
+    
+    # Drop columns with all NaN values
+    sub_Category_Year = sub_Category_Year.dropna(axis=1, how='all')
+
     st.write(sub_Category_Year)
 
     csv=sub_Category_Year.to_csv(index=False).encode("utf-8")
