@@ -166,6 +166,7 @@ with st.expander("Summary_table"):
     sub_Category_Year = pd.pivot_table(data=filtered_df,values="Sales",index=["Sub-Category"],columns="month")
     #st.write(sub_Category_Year.T.style.background_gradient(cmap="Blues"))
     
+    #add changes 
     # Sort columns in ascending order of month
     month_order = list(calendar.month_name)
     sub_Category_Year = sub_Category_Year.reindex(columns=month_order, level=1)
